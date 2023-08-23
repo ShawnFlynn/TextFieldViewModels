@@ -9,8 +9,8 @@ class LiveDataViewModel() {
 	private var _liveDataText = MutableLiveData<String>("")
 	val text: LiveData<String> = _liveDataText
 
-	fun onTextChange(newName: String) {
-		_liveDataText.value = newName
+	fun onTextChange(newText: String) {
+		_liveDataText.value = newText
 	}
 }
 // implementation("androidx.compose.runtime:runtime-livedata:1.5.0") required in app:build.gradle.kts

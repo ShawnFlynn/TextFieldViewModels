@@ -48,29 +48,32 @@ private fun TextFieldScreen(liveDataViewModel: LiveDataViewModel? = null)
 {
 	val environment = if (liveDataViewModel == null) "Local" else "LiveData"
 
-	Text(text = environment,
-		modifier = Modifier.padding(10.dp))
-
 	if (environment == "Local") {
-		var localName by rememberSaveable { mutableStateOf("") }   // Local
-		TextFieldContent( text = localName,
-						  onTextChange = { localName = it })
+		var localText: String by rememberSaveable { mutableStateOf("") }   // Local
+		TextFieldContent( text = localText,
+						  label = environment)
+						 { localText = it }
 	} else {
 		if (liveDataViewModel != null) {
-			val viewModelName by liveDataViewModel.text.observeAsState()   // ViewModel
-			TextFieldContent(text = viewModelName.toString(),
-							 onTextChange = { liveDataViewModel.onTextChange(it) })
+			val viewModelText: String? by liveDataViewModel.text.observeAsState()  // LiveData
+			TextFieldContent(text = viewModelText.toString(),
+							 label = environment)
+							{ liveDataViewModel.onTextChange(it) }
 		}
 	}
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TextFieldContent(text: String, onTextChange: (String) -> Unit) {
+fun TextFieldContent(text: String, label: String, onTextChange: (String) -> Unit) {
 
 	Column(modifier = Modifier.padding(16.dp))
 	{
-		Spacer(modifier = Modifier.height(50.dp))
-		OutlinedTextField(value = text.toString(), onValueChange = onTextChange)
+		Text(text = label,
+			 modifier = Modifier.padding(10.dp))
+
+		Spacer(modifier = Modifier.height(15.dp))
+
+		OutlinedTextField(value = text, onValueChange = onTextChange)
 	}
 }
