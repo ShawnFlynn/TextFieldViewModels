@@ -45,25 +45,27 @@ private fun TextFieldScreen(stateFlowViewModel: StateFlowViewModel? = null)
 	val environment = if (stateFlowViewModel == null) "Local" else "StateFlow"
 
 	if (environment == "Local") {
-		var localName by rememberSaveable { mutableStateOf("") }   // Local
-		TextFieldContent( text = localName, label = environment) { localName = it }
+		var localText by rememberSaveable { mutableStateOf("") }   // Local
+		TextFieldContent( text = localText, label = environment) { localText = it }
 	} else {
 		if (stateFlowViewModel != null) {
 			val stateFlowName: String by stateFlowViewModel.text.collectAsState()   // StateFlow
-			TextFieldContent( text = stateFlowName, label = environment) { stateFlowViewModel.onNameChange(it) }
+			TextFieldContent( text = stateFlowName, label = environment) { stateFlowViewModel.onTextChange(it) }
 		}
 	}
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TextFieldContent(text: String, label: String, onNameChange: (String) -> Unit) {
+fun TextFieldContent(text: String, label: String, onTextChange: (String) -> Unit) {
 
 	Column(modifier = Modifier.padding(16.dp))
 	{
 		Text(text = label,
 			 modifier = Modifier.padding(10.dp))
+
 		Spacer(modifier = Modifier.height(15.dp))
-		OutlinedTextField(value = text, onValueChange = onNameChange)
+
+		OutlinedTextField(value = text, onValueChange = onTextChange)
 	}
 }

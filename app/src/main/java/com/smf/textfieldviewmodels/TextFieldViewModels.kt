@@ -8,7 +8,7 @@ class StateFlowViewModel {
 	private val _stateFlowText = MutableStateFlow<String>("")
 	val text: StateFlow<String> = _stateFlowText.asStateFlow()
 
-	fun onNameChange(newText: String) {
+	fun onTextChange(newText: String) {
 		_stateFlowText.value = newText
 	}
 }
