@@ -45,7 +45,7 @@ private fun TextFieldScreen()
 	Text(text = environment,
 		modifier = Modifier.padding(10.dp))
 
-		var localText by rememberSaveable { mutableStateOf("") }   // Local
+		var localText: String by rememberSaveable { mutableStateOf("") }   // Local
 		TextFieldContent(text = localText) { localText = it }
 }
 
