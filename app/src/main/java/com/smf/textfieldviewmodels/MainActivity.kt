@@ -45,7 +45,7 @@ private fun TextFieldScreen(stateFlowViewModel: StateFlowViewModel? = null)
 	val environment = if (stateFlowViewModel == null) "Local" else "StateFlow"
 
 	if (environment == "Local") {
-		var localText by rememberSaveable { mutableStateOf("") }   // Local
+		var localText: String by rememberSaveable { mutableStateOf("") }   // Local
 		TextFieldContent( text = localText, label = environment) { localText = it }
 	} else {
 		if (stateFlowViewModel != null) {
